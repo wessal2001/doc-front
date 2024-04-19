@@ -1,0 +1,140 @@
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <body>
+      <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist" style="margin-top: 0px;" >
+          <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" style="font-size: 20px; width: 20%;"><i class="bi bi-file-text" style="color: cadetblue; font-size: 25px; font-weight: 700px; "></i>Documents</a>
+          <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" style="width: 20%; color: black;"></a>
+          <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false"></a>
+        </div>
+      </nav>
+      <div id='wrapper'>
+        <div id='page-wrapper'>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <h2 style="margin-top: 15px; color: cadetblue;">Gestion des documents</h2>
+                <hr />
+              </div>
+            </div>
+                <div class="row ">
+
+                    <div class="d-flex">
+                        <div class="p-2 flex-fill">
+                            <!-- Barre de filtre par nom -->
+                            <input type="text" class="form-control" style="width: 100%;" placeholder="Filtrer par nom"
+                                [(ngModel)]="nom">
+                        </div>
+                        <div class="p-2 flex-fill">
+                            <!-- Barre de filtre par date -->
+                            <input type="date" class="form-control" style="width: 100%;" placeholder="Filtrer par date"
+                                [(ngModel)]="date">
+                        </div>
+                        <div class="p-2 flex-fill">
+                            <input type="text" class="form-control" style="width: 100%;" placeholder="Filtrer par type"
+                                [(ngModel)]="type">
+                        </div>
+                        <div class="p-2 flex-fill">
+                            <button class="btn btn-primary" style="width: 100%;" (click)="filterList()">Search</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row ">
+                    <div class="d-flex d-inline-flex p-2">
+                        <button class="btn btn-primary" style="margin-top: 6px;" (click)="openUploadDialog()">Nouveau
+                            document </button>
+                    </div>
+                </div>
+                <hr>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-xs-12 js-content">
+                    <div class="docs-table">
+                        <table data-toggle="table" data-show-toggle="true" data-show-columns="true" data-search="true"
+                            data-striped="true">
+                            <thead>
+                                <tr>
+                                    <th data-field="other"></th>
+                                    <th data-field="Type">Type</th>
+                                    <th data-field="Name">Nom</th>
+                                    <th data-field="Description">Date de creation </th>
+                                    <th data-field="astViewed">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let doc of docs">
+                                    <td><i class="fas fa-file-word" style="color: green;"></i></td>
+                                    <td>{{doc.type}}</td>
+                                    <td>{{doc.nom}}</td>
+                                    <td>{{doc.dateCreation}}</td>
+                                    <td>
+                                        <button class="btn btn-outline-primary"
+                                            (click)="openShareDialog(doc.idDocument)" [disabled]="!hasShareRight(doc)">Partager</button>
+                                        <button class="btn btn-outline-danger" style="margin-left: 5px;"
+                                            (click)="deleteDoc(doc.idDocument)" [disabled]="!hasWriteRight(doc)">Supprimer</button>
+                                        <button class="btn btn-outline-danger" style="margin-left: 5px;"
+                                            (click)="download(doc.idDocument)" [disabled]="!hasReadRight(doc)">Download</button>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Boîte de dialogue -->
+        <div id="uploadDialog" *ngIf="showUploadDialog" class="upload-dialog">
+            <h5 style="color: cadetblue; font: size 3px; margin-left: 30px;">Ajouter un document</h5>
+            <form (submit)="save()" enctype="multipart/form-data">
+             
+             
+              <div class="button-container">
+                  <div class="form-group">
+                    <input type="file" id="fileInput" (change)="onFileSelected($event)" class="form-control-file custom-file-input" style="color: aliceblue;">
+                    <button type="button" class="btn btn-primary" (click)="addMetadataField()" style="background-color: cadetblue;" >+</button>
+                  </div>          
+                </div>
+              <div *ngIf="showMetadataFields" style="margin-top: 10px;">
+                <div *ngFor="let metadata of metadataFields; let i = index" class="metadata-field form-row">
+                  <div class="row">
+                    <div class="col">
+                      <input type="text" [(ngModel)]="metadata.keyName" name="metadata_keyName_{{i}}" placeholder="metadata" class="form-control">
+                    </div>
+                    <div class="col">
+                      <input type="text" [(ngModel)]="metadata.value" name="metadata_value_{{i}}" placeholder="valeur" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary" style="margin-left: 300px;" (click)="save()">Sauvgarder</button>
+            </form>
+          </div>
+        <!-- Boîte de dialogue pour partager le document -->
+        <div id="shareDialog" *ngIf="showShareDialog" class="share-dialog">
+            <h3>Partager le document</h3>
+            <!-- Combobox pour sélectionner l'utilisateur -->
+            <div class="form-group">
+                <label for="userSelect">Utilisateur :</label>
+                <select class="form-control" id="userSelect" [(ngModel)]="userId">
+                    <option *ngFor="let user of users" [value]="user.idUser">{{ user.username }}</option>
+                </select>
+            </div>
+            <!-- Champ de texte pour le droit d'accès -->
+            <div class="form-group">
+                <label for="accessRights">Droit d'accès :</label>
+                <input type="text" class="form-control" id="accessRights" placeholder="Droit d'accès"
+                    [(ngModel)]="accessRight">
+            </div>
+            <!-- Bouton pour confirmer le partage -->
+            <button class="btn btn-primary" (click)="shareDocument(idDoc)">Partager</button>
+            <!-- Bouton pour fermer la boîte de dialogue -->
+            <button class="btn btn-secondary" (click)="closeShareDialog()">Fermer</button>
+        </div>
+
+
+    </div>
+
+</body>

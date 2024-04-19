@@ -1,0 +1,254 @@
+@import "@fortawesome/fontawesome-free/css/all.css";
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+.docs-table {
+  tbody {
+    i {
+      display: inline-block;
+      margin: 0 auto;
+      font-size: 2em;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
+/* Ajoutez ces styles dans un fichier CSS de votre projet Angular */
+ 
+.docs-table table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+ 
+  .docs-table th, .docs-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+ 
+  .docs-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+ 
+  .docs-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+ 
+  .docs-table tbody tr:hover {
+    background-color: #f2f2f2;
+  }
+ 
+ 
+ul {
+  li i {
+    display: inline-block;
+    margin-right: 10px;
+  }
+}
+ 
+li.divider {
+  width: 100%;
+  hr {
+    width: 90%;
+    text-align: center;
+  }
+}
+ 
+li.sub-li {
+  font-size: 0.8em;
+}
+ 
+ 
+  li  {
+    line-height: 35px;
+ 
+    transition: all 250ms ease;
+ 
+    i {
+      min-width: 24px;
+      width: 24px;
+      margin-right: 10px;
+      padding-right: 10px;
+      text-align: center;
+    }
+  }
+@media (max-height: 600px) {
+  ul.navbar-nav.side-nav > li > a {
+    height: 40px;
+    padding: 5px 15px;
+  }
+}
+ 
+body {
+  margin-top: 52px;
+  padding-bottom: 52px;
+}
+#wrapper {
+  height: 100%;
+  padding-left: 0;
+}
+#page-wrapper {
+  height: 100%;
+  padding: 5px 15px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+ 
+.navbar-inverse {
+  background-color: #e7e7e7;
+  border-color: #e7e7e7;
+}
+ 
+.navbar-toggle {
+  background: rgb(125, 120, 120);
+}
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+.navbar-inverse .navbar-nav > .open > a,
+.navbar-inverse .navbar-nav > .open > a:hover,
+.navbar-inverse .navbar-nav > .open > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+@media (max-width: 767px) {
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
+    border-color: #dff0d9;
+  }
+  .navbar-inverse .navbar-nav .open .dropdown-menu .divider {
+    background-color: #428bca;
+  }
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+    color: #999;
+  }
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #fff;
+    background-color: transparent;
+  }
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #fff;
+    background-color: #428bca;
+  }
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a,
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+    color: #444;
+    background-color: transparent;
+  }
+ 
+  .nav.navbar-nav.side-nav {
+    background-color: rgb(220, 225, 225);
+    border: 2px solid rgb(200, 215, 215);
+  }
+}
+ 
+/* Nav Announcements */
+.alerts-heading {
+  font-size: 50px;
+  margin: 0;
+}
+.alerts-text {
+  margin: 0;
+}
+ 
+/* Edit Below to Customize Widths > 768px */
+@media (min-width: 768px) {
+  /* Wrappers */
+  #wrapper {
+    padding-left: 225px;
+ 
+    transition: padding-left 800ms ease;
+ 
+    &.expanded {
+      padding-left: 48px;
+    }
+  }
+  #page-wrapper {
+    padding: 0px 25px 15px 25px;
+  }
+ 
+  /* Side Nav */
+  .side-nav {
+    margin-left: -225px;
+    left: 225px;
+    width: 225px;
+    position: fixed;
+    top: 50px;
+    height: auto;
+    border-radius: 0;
+    border: none;
+    background-color: #f3f3f3;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    user-select: none;
+  }
+ 
+  /*menu overrides*/
+  .side-nav > li.dropdown > ul.dropdown-menu {
+    position: relative;
+    min-width: 225px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+  }
+  .side-nav > li.dropdown > ul.dropdown-menu > li > a {
+    color: #999999;
+    padding: 15px 15px 15px 25px;
+  }
+  .side-nav > li.dropdown > ul.dropdown-menu > li > a:hover,
+  .side-nav > li.dropdown > ul.dropdown-menu > li > a.active,
+  .side-nav > li.dropdown > ul.dropdown-menu > li > a:focus {
+    color: #fff;
+    background-color: #428bca;
+  }
+  .side-nav > li > a {
+    width: 225px;
+  }
+ 
+  .navbar-inverse .navbar-nav > li > a:hover,
+  .navbar-inverse .navbar-nav > li > a:focus {
+    background-color: #c9c9c9;
+  }
+ 
+  .custom-col {
+    width: 30%;
+  }
+  .navbar-collapse {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+}
+ 
+.header-text {
+  display: inline-block;
+  border-bottom: 1px solid lightgrey;
+  font-weight: 300;
+ 
+  animation-delay: 0;
+  animation-duration: 600ms;
+}
+.upload-dialog {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    margin-left: 200px;
+   
+  }
